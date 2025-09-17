@@ -1,0 +1,1650 @@
+{
+  "name": "tourflow-desktop-web",
+  "version": "1.0.0",
+  "description": "Web version of Tourflow Desktop Application",
+  "private": true,
+  "scripts": {
+    "build": "flutter build web --release",
+    "dev": "flutter run -d chrome",
+    "preview": "flutter build web --release && npx serve build/web",
+    "serve": "npx serve build/web",
+    "deploy": "npm run build && npx netlify-cli deploy --prod",
+    "deploy-preview": "npm run build && npx netlify-cli deploy",
+    "vercel-build": "flutter build web --release"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0",
+    "serve": "^14.0.0"
+  }
+}
+# Tourflow Desktop Application
+
+This directory contains the desktop version of the Tourflow application, built with Flutter for Windows, macOS, and Linux platforms.
+
+## 🏗️ Building the Desktop App
+
+### Prerequisites
+
+1. **Flutter SDK** (3.10.0 or higher)
+2. **Desktop development tools** for your target platform:
+   - **Windows**: Visual Studio with C++ development tools
+   - **macOS**: Xcode with command line tools
+   - **Linux**: GTK development headers and clang
+
+### Build Commands
+
+```
+# Navigate to the desktop app directory
+cd apps/desktop
+
+# Get dependencies
+flutter pub get
+
+# Build for all platforms
+flutter build windows
+flutter build macos
+flutter build linux
+
+# Build for specific platform
+flutter build windows --release
+
+```
+
+### Build Scripts
+
+- **Windows**: Run [build_desktop.bat](file://c:\Users\Clint\Downloads\Tourflow%20Starter%20Pack\Tourflow%20Qoder%20Starter%20Pack\apps\desktop\build_desktop.bat)
+- **macOS/Linux**: Run [build_desktop.sh](file://c:\Users\Clint\Downloads\Tourflow%20Starter%20Pack\Tourflow%20Qoder%20Starter%20Pack\apps\desktop\build_desktop.sh)
+
+## 🚀 Running the Desktop App
+
+### Development Mode
+
+```
+# Run on current platform
+flutter run
+
+# Run on specific platform
+flutter run -d windows
+flutter run -d macos
+flutter run -d linux
+
+```
+
+### Production Mode
+
+After building, run the executable from:
+
+- **Windows**: `build\\windows\\x64\\runner\\Release\\tourflow_desktop.exe`
+- **macOS**: `build/macos/Build/Products/Release/tourflow_desktop.app`
+- **Linux**: `build/linux/x64/release/bundle/tourflow_desktop`
+
+## 🌐 Web Version for Deployment
+
+This desktop application can also be compiled to a web version for deployment to platforms like Vercel or Netlify.
+
+### Prerequisites for Web Deployment
+1. **Node.js** (v16 or higher)
+
+### Build for Web
+```
+# Navigate to the desktop app directory
+cd apps/desktop
+
+# Build for web
+flutter build web --release
+```
+
+### Deploy to Vercel
+For detailed deployment instructions, see [VERCEL_DEPLOY.md](file://c:\Users\Clint\Downloads\Tourflow%20Starter%20Pack\Tourflow%20Qoder%20Starter%20Pack\apps\desktop\VERCEL_DEPLOY.md)
+
+Quick deployment options:
+```
+# Using Vercel CLI
+vercel
+
+# Using Git integration
+# Push to GitHub and import to Vercel
+```
+
+### Deploy to Netlify
+For detailed deployment instructions, see [NETLIFY_DEPLOY.md](file://c:\Users\Clint\Downloads\Tourflow%20Starter%20Pack\Tourflow%20Qoder%20Starter%20Pack\apps\desktop\NETLIFY_DEPLOY.md)
+
+Quick deployment options:
+```
+# Using npm scripts
+npm run deploy          # Deploy to production
+npm run deploy-preview  # Deploy to preview URL
+
+# Using deployment scripts
+# Windows: Run deploy_netlify.bat
+# macOS/Linux: Run deploy_netlify.sh
+```
+
+## 📁 Project Structure
+
+```
+desktop/
+├── lib/
+│   ├── main.dart
+│   ├── src/
+│   │   ├── app.dart
+│   │   ├── core/
+│   │   │   ├── config/
+│   │   │   └── services/
+│   │   ├── presentation/
+│   │   │   ├── layouts/
+│   │   │   ├── router/
+│   │   │   ├── screens/
+│   │   │   ├── themes/
+│   │   │   └── widgets/
+│   │   └── shared/
+│   └── utils/
+├── assets/
+├── windows/
+├── macos/
+├── linux/
+├── pubspec.yaml
+├── build_desktop.bat
+└── build_desktop.sh
+
+```
+
+## 🎨 Desktop-Specific Features
+
+### Navigation
+- **Navigation Rail**: Collapsible sidebar for efficient navigation
+- **Menu Bar**: Application menu with quick actions
+- **Status Bar**: System information and connection status
+
+### System Integration
+- **System Tray**: Minimize to system tray (Windows/Linux)
+- **Global Hotkeys**: Keyboard shortcuts for quick actions
+- **Native File Dialogs**: Platform-native file picking
+- **Drag & Drop**: File drop zones for document uploads
+
+### Window Management
+- **Resizable Windows**: Adjustable window dimensions
+- **Minimize/Maximize**: Standard window controls
+- **Multiple Windows**: Support for additional windows
+
+## ⚙️ Configuration
+
+### Environment Variables
+
+Create a `.env` file in the desktop directory:
+
+```
+# Supabase Configuration
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+
+# Desktop Configuration
+DESKTOP_WINDOW_WIDTH=1440
+DESKTOP_WINDOW_HEIGHT=900
+
+```
+
+### Platform-Specific Settings
+
+#### Windows
+- Registry integration
+- Taskbar notifications
+- File associations
+
+#### macOS
+- Menu bar integration
+- Dock icon customization
+- System preferences
+
+#### Linux
+- System tray support
+- Desktop notifications
+- File manager integration
+
+## 🔧 Development
+
+### Adding New Features
+
+1. Create new screens in `lib/src/presentation/screens/`
+2. Add routes in `lib/src/presentation/router/desktop_router.dart`
+3. Update navigation in `lib/src/presentation/widgets/desktop_navigation_rail.dart`
+
+### Desktop-Specific Widgets
+
+- `DesktopAppBar`: Enhanced app bar with desktop features
+- `DesktopNavigationRail`: Collapsible navigation sidebar
+- `DesktopStatusBar`: System information bar
+- `DesktopFileDropZone`: Drag and drop file zone
+
+## 🧪 Testing
+
+```
+# Run desktop tests
+flutter test
+
+# Run integration tests
+flutter drive --target=test_driver/app.dart -d windows
+
+```
+
+## 📦 Distribution
+
+### Windows
+1. Build with `flutter build windows --release`
+2. Package `build\\windows\\x64\\runner\\Release\\` contents
+3. Create installer with Inno Setup or similar
+
+### macOS
+1. Build with `flutter build macos --release`
+2. Codesign the app bundle
+3. Create DMG installer
+
+### Linux
+1. Build with `flutter build linux --release`
+2. Package as AppImage, deb, or rpm
+3. Distribute through package managers
+
+## 🐛 Troubleshooting
+
+### Common Issues
+
+1. **Build failures**: Ensure all platform development tools are installed
+2. **Missing dependencies**: Run `flutter pub get` after adding packages
+3. **Performance issues**: Use Flutter DevTools for profiling
+
+### Platform-Specific Issues
+
+#### Windows
+- Install Visual Studio with C++ tools
+- Ensure Windows 10 SDK is installed
+
+#### macOS
+- Install Xcode command line tools
+- Accept Xcode license agreement
+
+#### Linux
+- Install GTK development headers
+- Install clang and build tools
+
+## 📚 Additional Resources
+
+- [Flutter Desktop Documentation](https://docs.flutter.dev/desktop)
+- [Tourflow Core Package Documentation](../../packages/core/README.md)
+- [Tourflow UI Package Documentation](../../packages/ui/README.md)
+- [Supabase Flutter Integration](https://supabase.com/docs/guides/getting-started/tutorials/with-flutter)
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build/web"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains; preload"
+        }
+      ]
+    }
+  ]
+}
+# Tourflow Desktop Web Version - Vercel Deployment
+
+This document provides instructions for deploying the Tourflow Desktop application to Vercel as a web application.
+
+## 🚀 Deployment to Vercel
+
+### Prerequisites
+1. Create a Vercel account at [vercel.com](https://vercel.com)
+2. Install Vercel CLI (optional):
+   ```bash
+   npm install -g vercel
+   ```
+
+### Deployment Steps
+
+#### Option 1: Deploy via Vercel Dashboard (Recommended)
+1. Go to [vercel.com](https://vercel.com) and sign in
+2. Click "New Project"
+3. Import your GitHub repository
+4. Configure the project:
+   - Framework Preset: Other
+   - Build Command: `cd apps/desktop && flutter build web --release`
+   - Output Directory: `apps/desktop/build/web`
+   - Install Command: Leave as default
+5. Click "Deploy"
+
+#### Option 2: Deploy via Vercel CLI
+1. Install Vercel CLI:
+   ```bash
+   npm install -g vercel
+   ```
+2. Navigate to your project root:
+   ```bash
+   cd /path/to/your/project
+   ```
+3. Deploy:
+   ```bash
+   vercel
+   ```
+4. Follow the prompts to configure your project
+
+#### Option 3: Deploy via Git Integration
+1. Push your code to GitHub
+2. Connect GitHub to Vercel
+3. Import your repository
+4. Vercel will automatically detect the configuration from `vercel.json`
+
+### Vercel Configuration
+
+The project includes a `vercel.json` file with:
+- Build configuration for Flutter web
+- Routing for client-side navigation
+- Security headers for enhanced protection
+
+## 🌐 Accessing the Deployed App
+
+Once deployed, your app will be available at:
+- Default Vercel URL: `https://your-project.vercel.app`
+- Custom domain (if configured): `https://your-domain.com`
+
+## ⚙️ Environment Variables
+
+Set these environment variables in Vercel:
+- `SUPABASE_URL`: Your Supabase project URL
+- `SUPABASE_ANON_KEY`: Your Supabase anonymous key
+
+Configure in Vercel Dashboard:
+1. Go to your project settings
+2. Navigate to Environment Variables
+3. Add the required variables
+4. Redeploy the project
+
+## 🔄 Continuous Deployment
+
+Vercel automatically deploys new changes when you push to your connected Git repository:
+- Push to `main` branch: Deploys to production
+- Push to other branches: Creates preview deployments
+
+### Branch Protection
+1. In Vercel dashboard, go to Git Integration
+2. Configure branch protection rules
+3. Set up preview deployments for pull requests
+
+## 🛠️ Custom Domain Setup
+
+1. In Vercel dashboard, go to Domains
+2. Add your custom domain
+3. Follow the DNS configuration instructions
+4. Vercel automatically provisions SSL certificates
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+1. **Build failures:**
+   - Ensure all dependencies are specified in pubspec.yaml
+   - Check that the build command is correct
+   - Verify Flutter version compatibility
+
+2. **Runtime errors:**
+   - Check browser console for errors
+   - Verify environment variables are set correctly
+   - Ensure Supabase configuration is correct
+
+3. **Performance issues:**
+   - Enable Vercel's Edge Network
+   - Optimize asset sizes
+   - Use Vercel's caching headers
+
+### Vercel Settings
+
+Recommended Vercel settings:
+- Edge Network: Enabled
+- Asset optimization: Enabled
+- Pretty URLs: Enabled
+- Custom headers for security
+
+## 📈 Monitoring
+
+- Vercel Analytics for traffic insights
+- Error tracking with Sentry or similar
+- Performance monitoring with Lighthouse
+
+## 🔄 Migration from Netlify
+
+If you're migrating from Netlify:
+1. Remove Netlify-specific configuration (netlify.toml)
+2. Add Vercel configuration (vercel.json)
+3. Update environment variables in Vercel dashboard
+4. Configure custom domain in Vercel
+# Vercel Version of Tourflow Desktop Application
+
+This document summarizes the setup for deploying the Tourflow Desktop application to Vercel as a web version.
+
+## Overview
+
+The Tourflow Desktop application has been configured to be deployable as a web application to Vercel. This allows users to access the desktop application functionality through a web browser with Vercel's global CDN and automatic SSL.
+
+## Configuration Files
+
+### 1. vercel.json
+- Configured build settings for Flutter web deployment
+- Added routing for client-side navigation
+- Included security headers for enhanced security
+
+### 2. package.json
+- Added Vercel-specific build script (`vercel-build`)
+- Maintained existing scripts for development and deployment
+
+### 3. Documentation
+- `VERCEL_DEPLOY.md` - Comprehensive deployment guide
+- Updated `README.md` - Added Vercel deployment information
+
+## Deployment Process
+
+### Automated Deployment via Git
+1. Push your code to GitHub
+2. Connect GitHub to Vercel
+3. Import your repository
+4. Vercel will automatically detect the configuration and deploy
+
+### Manual Deployment via Vercel CLI
+1. Install Vercel CLI:
+   ```
+   npm install -g vercel
+   ```
+2. Deploy from project root:
+   ```
+   vercel
+   ```
+
+### Build Process
+Vercel will automatically run:
+```
+flutter build web --release
+```
+
+The output will be served from:
+```
+build/web
+```
+
+## Environment Variables
+
+Set these environment variables in Vercel for proper functionality:
+- `SUPABASE_URL` - Your Supabase project URL
+- `SUPABASE_ANON_KEY` - Your Supabase anonymous key
+
+Configure in Vercel Dashboard:
+1. Go to your project settings
+2. Navigate to Environment Variables
+3. Add the required variables
+
+## Continuous Deployment
+
+Vercel provides automatic deployments:
+- Push to `main` branch: Deploys to production
+- Push to other branches: Creates preview deployments
+- Pull requests: Automatic preview URLs
+
+## Accessing the Deployed Application
+
+Once deployed, your application will be available at:
+- Default Vercel URL: `https://your-project.vercel.app`
+- Custom domain (if configured): `https://your-domain.com`
+
+## Migration from Netlify
+
+If you're migrating from Netlify:
+1. The existing Netlify configuration (`netlify.toml`) can remain
+2. Add the Vercel configuration (`vercel.json`)
+3. Update environment variables in Vercel dashboard
+4. Configure custom domain in Vercel
+
+Both platforms can coexist, or you can choose one as your primary deployment target.
+@echo off
+REM Tourflow Desktop Web Deployment Script for Netlify
+
+ECHO ================================
+ECHO Tourflow Desktop Web Deployment
+ECHO ================================
+
+REM Check if Flutter is installed
+WHERE flutter >nul 2>&1
+IF %ERRORLEVEL% NEQ 0 (
+    ECHO Error: Flutter is not installed or not in PATH
+    ECHO Please install Flutter from https://flutter.dev
+    PAUSE
+    EXIT /B 1
+)
+
+REM Check if Node.js is installed
+WHERE node >nul 2>&1
+IF %ERRORLEVEL% NEQ 0 (
+    ECHO Error: Node.js is not installed or not in PATH
+    ECHO Please install Node.js from https://nodejs.org
+    PAUSE
+    EXIT /B 1
+)
+
+REM Navigate to project directory
+CD /D "%~dp0"
+
+ECHO.
+ECHO 1. Installing Node.js dependencies...
+npm install
+
+ECHO.
+ECHO 2. Cleaning previous builds...
+flutter clean
+flutter pub get
+
+ECHO.
+ECHO 3. Building for web...
+flutter build web --release
+
+ECHO.
+ECHO 4. Checking Netlify CLI installation...
+npm list -g netlify-cli >nul 2>&1
+IF %ERRORLEVEL% NEQ 0 (
+    ECHO Installing Netlify CLI...
+    npm install -g netlify-cli
+)
+
+ECHO.
+ECHO 5. Deploying to Netlify...
+ECHO.
+ECHO Please follow the prompts to log in to Netlify and select your site.
+ECHO If you haven't created a site yet, Netlify CLI will help you create one.
+ECHO.
+
+netlify deploy --prod
+
+ECHO.
+ECHO Deployment completed successfully!
+ECHO Your site is now live on Netlify.
+
+PAUSE
+#!/bin/bash
+
+# Tourflow Desktop Web Deployment Script for Netlify
+
+echo "================================"
+echo "Tourflow Desktop Web Deployment"
+echo "================================"
+
+# Check if Flutter is installed
+if ! command -v flutter &> /dev/null
+then
+    echo "Error: Flutter is not installed or not in PATH"
+    echo "Please install Flutter from https://flutter.dev"
+    exit 1
+fi
+
+# Check if Node.js is installed
+if ! command -v node &> /dev/null
+then
+    echo "Error: Node.js is not installed or not in PATH"
+    echo "Please install Node.js from https://nodejs.org"
+    exit 1
+fi
+
+# Navigate to project directory
+cd "$(dirname "$0")"
+
+echo ""
+echo "1. Installing Node.js dependencies..."
+npm install
+
+echo ""
+echo "2. Cleaning previous builds..."
+flutter clean
+flutter pub get
+
+echo ""
+echo "3. Building for web..."
+flutter build web --release
+
+echo ""
+echo "4. Checking Netlify CLI installation..."
+if ! npm list -g netlify-cli &> /dev/null
+then
+    echo "Installing Netlify CLI..."
+    npm install -g netlify-cli
+fi
+
+echo ""
+echo "5. Deploying to Netlify..."
+echo ""
+echo "Please follow the prompts to log in to Netlify and select your site."
+echo "If you haven't created a site yet, Netlify CLI will help you create one."
+echo ""
+
+netlify deploy --prod
+
+echo ""
+echo "Deployment completed successfully!"
+echo "Your site is now live on Netlify."
+
+echo ""
+echo "Press any key to continue..."
+read -n 1 -s
+[build]
+command = "flutter build web --release"
+publish = "build/web"
+
+[[headers]]
+for = "/*"
+[headers.values]
+X-Frame-Options = "DENY"
+X-XSS-Protection = "1; mode=block"
+X-Content-Type-Options = "nosniff"
+Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+# Tourflow Desktop Web Version
+
+This is the web version of the Tourflow Desktop application, built with Flutter and optimized for web deployment.
+
+## 🚀 Deployment to Netlify
+
+### Prerequisites
+1. Install Node.js (v16 or higher)
+2. Install Netlify CLI globally:
+   ```bash
+   npm install -g netlify-cli
+   ```
+
+### Deployment Steps
+
+1. **Build the web version:**
+   ```bash
+   cd apps/desktop
+   flutter build web --release
+   ```
+
+2. **Deploy to Netlify:**
+   ```bash
+   # If not logged in to Netlify CLI
+   netlify login
+   
+   # Deploy the site
+   netlify deploy --prod
+   
+   # Or use the automated script
+   npm run deploy
+   ```
+
+### Netlify Configuration
+
+The site is configured with:
+- Build command: `flutter build web --release`
+- Publish directory: `build/web`
+- Custom domain support
+- Automatic HTTPS
+- Continuous deployment from Git
+
+## 🌐 Accessing the Deployed App
+
+Once deployed, your app will be available at:
+- Default Netlify URL: `https://your-site-name.netlify.app`
+- Custom domain (if configured): `https://your-domain.com`
+
+## 🛠️ Environment Variables
+
+Set these environment variables in Netlify:
+- `SUPABASE_URL`: Your Supabase project URL
+- `SUPABASE_ANON_KEY`: Your Supabase anonymous key
+
+Configure in Netlify Dashboard:
+1. Go to Site settings → Build & deploy → Environment
+2. Add environment variables
+3. Redeploy the site
+
+## 🔄 Continuous Deployment
+
+### With GitHub Integration
+1. Connect your GitHub repository to Netlify
+2. Set build settings:
+   - Build command: `cd apps/desktop && flutter build web --release`
+   - Publish directory: `apps/desktop/build/web`
+3. Enable auto-publishing
+
+### Manual Deployments
+```bash
+# Deploy to a preview URL
+netlify deploy
+
+# Deploy to production
+netlify deploy --prod
+```
+
+## 🧪 Development Workflow
+
+For local development and testing:
+
+```bash
+# Run locally in development mode
+npm run dev
+
+# Build and serve locally
+npm run build
+npm run serve
+
+# Preview production build locally
+npm run preview
+```
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+1. **Build failures:**
+   - Ensure Flutter is installed in the build environment
+   - Check that all dependencies are specified in pubspec.yaml
+
+2. **Runtime errors:**
+   - Verify environment variables are set correctly
+   - Check browser console for errors
+
+3. **Performance issues:**
+   - Enable Netlify's asset optimization
+   - Use Netlify's edge functions for API calls
+
+### Netlify Settings
+
+Recommended Netlify settings:
+- Asset optimization: Enabled
+- Pretty URLs: Enabled
+- Custom headers for security
+- Redirects for client-side routing
+
+## 📈 Monitoring
+
+- Netlify Analytics for traffic insights
+- Error tracking with Sentry or similar
+- Performance monitoring with Lighthouse
+
+## 📦 Additional Deployment Options
+
+### Deploy Preview
+Create a preview deployment without affecting production:
+```bash
+npm run deploy-preview
+```
+
+### Custom Domain Setup
+1. In Netlify dashboard, go to Domain settings
+2. Add custom domain
+3. Configure DNS records as instructed
+4. Enable SSL certificate (automatically provided by Netlify)
+
+### Environment-Specific Deployments
+For different environments (staging, production):
+1. Use Netlify's branch deploys feature
+2. Set up different environment variables per branch
+3. Configure deploy contexts in Netlify
+# Netlify Version of Tourflow Desktop Application
+
+This document summarizes the setup for deploying the Tourflow Desktop application to Netlify as a web version.
+
+## Overview
+
+The Tourflow Desktop application has been configured to be deployable as a web application to Netlify. This allows users to access the desktop application functionality through a web browser.
+
+## Configuration Files
+
+### 1. package.json
+- Added npm scripts for building and deploying to Netlify
+- Included dependencies for Netlify CLI and serve
+
+### 2. netlify.toml
+- Configured build settings for Flutter web deployment
+- Added security headers for enhanced security
+- Set up redirects for client-side routing
+
+### 3. Deployment Scripts
+- `deploy_netlify.bat` - Windows deployment script
+- `deploy_netlify.sh` - Unix/Linux/macOS deployment script
+
+### 4. Documentation
+- `NETLIFY_DEPLOY.md` - Comprehensive deployment guide
+- Updated `README.md` - Added Netlify deployment information
+
+## Deployment Process
+
+### Automated Deployment
+1. Run the deployment script for your platform:
+   - Windows: `deploy_netlify.bat`
+   - macOS/Linux: `deploy_netlify.sh`
+
+### Manual Deployment
+1. Build the web version:
+   ```
+   flutter build web --release
+   ```
+2. Deploy using Netlify CLI:
+   ```
+   netlify deploy --prod
+   ```
+
+### npm Scripts
+- `npm run build` - Build for web
+- `npm run dev` - Run locally in development mode
+- `npm run preview` - Build and preview locally
+- `npm run serve` - Serve the built web version
+- `npm run deploy` - Deploy to production
+- `npm run deploy-preview` - Deploy to preview URL
+
+## Environment Variables
+
+Set these environment variables in Netlify for proper functionality:
+- `SUPABASE_URL` - Your Supabase project URL
+- `SUPABASE_ANON_KEY` - Your Supabase anonymous key
+
+## Continuous Deployment
+
+For continuous deployment from GitHub:
+1. Connect your repository to Netlify
+2. Set build command: `flutter build web --release`
+3. Set publish directory: `build/web`
+
+## Accessing the Deployed Application
+
+Once deployed, your application will be available at:
+- Default Netlify URL: `https://your-site-name.netlify.app`
+- Custom domain (if configured): `https://your-domain.com`
+# Tourflow Desktop App Testing Guide
+
+## 🚀 Getting Started
+
+### For Web Version (Easiest)
+1. Open your browser
+2. Go to: http://192.168.0.207:54371
+3. No installation required!
+
+### For Desktop App Installation
+1. Download the appropriate version for your system
+2. Extract the folder
+3. Run the executable:
+   - Windows: `tourflow_desktop.exe`
+   - macOS: `tourflow_desktop.app`
+   - Linux: `./tourflow_desktop`
+
+## 🔐 Test Accounts
+
+Use these credentials to test different user roles:
+
+### Tourism Operator
+- Email: operator@tourflow.com
+- Password: TourOp123!
+
+### Tour Guide
+- Email: guide@tourflow.com
+- Password: Guide123!
+
+### Driver
+- Email: driver@tourflow.com
+- Password: Driver123!
+
+## 🧪 What to Test
+
+### 1. Authentication
+- [ ] Login with different roles
+- [ ] Register new account
+- [ ] Password reset flow
+
+### 2. Dashboard
+- [ ] Revenue charts display correctly
+- [ ] Booking statistics update
+- [ ] Quick stats show accurate data
+
+### 3. Navigation
+- [ ] Sidebar navigation works
+- [ ] Keyboard shortcuts (Ctrl+Shift+T/S/B)
+- [ ] Window resizing and minimization
+
+### 4. Core Features
+- [ ] Provider search and filtering
+- [ ] Booking creation and management
+- [ ] Team member management
+- [ ] Reports and analytics
+- [ ] Profile settings
+
+### 5. Desktop-Specific Features
+- [ ] System tray integration (Windows/Linux)
+- [ ] File drag and drop
+- [ ] Native file dialogs
+- [ ] Window management
+
+## 📝 Feedback Template
+
+When reporting issues, please include:
+
+1. **Issue Description**: What went wrong?
+2. **Steps to Reproduce**: How can we recreate the issue?
+3. **Expected vs Actual**: What did you expect to happen?
+4. **Screenshots**: If applicable, include screenshots
+5. **System Info**: 
+   - Operating System: [e.g., Windows 11, macOS 14, Ubuntu 22.04]
+   - Tourflow Version: [e.g., v1.0.0-beta.1]
+   - Screen Resolution: [e.g., 1920x1080]
+
+## 📞 Support
+
+For immediate help:
+- Contact: [Your Contact Info]
+- Video Call: [Meeting Link if applicable]
+
+## ⚠️ Important Notes
+
+- This is a beta version - expect some bugs
+- Your data may be reset during updates
+- Report all issues, even minor ones
+- Feature requests welcome!
+@echo off
+REM Tourflow Desktop Build and Deployment Script
+
+ECHO ================================
+ECHO Tourflow Desktop Deployment
+ECHO ================================
+
+REM Check if Flutter is installed
+WHERE flutter >nul 2>&1
+IF %ERRORLEVEL% NEQ 0 (
+    ECHO Error: Flutter is not installed or not in PATH
+    ECHO Please install Flutter from https://flutter.dev
+    PAUSE
+    EXIT /B 1
+)
+
+REM Navigate to project directory
+CD /D "%~dp0"
+
+ECHO.
+ECHO 1. Cleaning previous builds...
+flutter clean
+flutter pub get
+
+ECHO.
+ECHO 2. Building for Windows...
+flutter build windows --release
+
+ECHO.
+ECHO 3. Building for Linux...
+flutter build linux --release
+
+ECHO.
+ECHO 4. Building for macOS...
+flutter build macos --release
+
+ECHO.
+ECHO Build completed successfully!
+ECHO Output locations:
+ECHO   - Windows: build\\windows\\x64\\runner\\Release\\nECHO   - Linux: build\\linux\\x64\\release\\bundle\\nECHO   - macOS: build\\macos\\Build\\Products\\Release\\n
+PAUSE
+#!/bin/bash
+
+# Tourflow Desktop Build Script for Unix-like systems
+
+echo \"================================\"
+echo \"Tourflow Desktop Deployment\"
+echo \"================================\"
+
+echo \"\"
+echo \"1. Cleaning previous builds...\"
+flutter clean
+flutter pub get
+
+echo \"\"
+echo \"2. Building for Linux...\"
+flutter build linux --release
+
+echo \"\"
+echo \"3. Building for macOS...\"
+flutter build macos --release
+
+echo \"\"
+echo \"Build completed successfully!\"
+echo \"Output locations:\"
+echo \"  - Linux: build/linux/x64/release/bundle/\"
+echo \"  - macOS: build/macos/Build/Products/Release/\"
+
+echo \"\"
+echo \"Note: Windows builds require Windows environment.\"
+echo \"Use build_desktop.bat on Windows systems.\"
+
+echo \"\"
+echo \"Press any key to continue...\"
+read -n 1 -s
+# 🖥️ Tourflow Desktop Application - Complete!
+
+Congratulations! You now have a fully-featured desktop version of the Tourflow application with all the capabilities of the mobile version plus desktop-specific enhancements.
+
+## 🎯 What's Included
+
+### 🏗️ Core Application Structure
+- **Complete Flutter Desktop App** for Windows, macOS, and Linux
+- **Shared Codebase** with mobile app using monorepo architecture
+- **Platform-Specific Optimizations** for each desktop OS
+
+### 🎨 Enhanced Desktop UI
+- **Navigation Rail** with collapsible sidebar
+- **Desktop-Optimized AppBar** with system integration
+- **Status Bar** showing system information
+- **Multi-Window Support** for advanced workflows
+- **Keyboard Shortcuts** for power users
+
+### 🔧 Desktop Features
+- **System Tray Integration** (Windows/Linux)
+- **Global Hotkeys** for quick actions
+- **Native File Dialogs** for document uploads
+- **Drag & Drop** file handling
+- **Window Management** with resize/minimize
+
+### 🚀 Performance Optimizations
+- **Responsive Breakpoints** for all screen sizes
+- **Memory Management** tuned for desktop
+- **Advanced Animations** leveraging desktop GPU
+- **Efficient Data Loading** with larger batch sizes
+
+### 📦 Deployment Ready
+- **Build Scripts** for all platforms
+- **Packaging Documentation** for distribution
+- **Performance Guidelines** for optimization
+- **Testing Framework** for quality assurance
+
+## 🏁 Getting Started
+
+### 1. Build the Application
+```bash
+# Navigate to desktop directory
+cd apps/desktop
+
+# Get dependencies
+flutter pub get
+
+# Build for your platform
+flutter build windows    # Windows
+flutter build macos      # macOS
+flutter build linux      # Linux
+```
+
+### 2. Run in Development
+```bash
+# Run on current platform
+flutter run
+
+# Run on specific platform
+flutter run -d windows
+```
+
+### 3. Package for Distribution
+- **Windows**: Use [build_desktop.bat](file://c:\Users\Clint\Downloads\Tourflow%20Starter%20Pack\Tourflow%20Qoder%20Starter%20Pack\apps\desktop\build_desktop.bat)
+- **macOS/Linux**: Use [build_desktop.sh](file://c:\Users\Clint\Downloads\Tourflow%20Starter%20Pack\Tourflow%20Qoder%20Starter%20Pack\apps\desktop\build_desktop.sh)
+
+## 🎉 Key Features Implemented
+
+✅ **Authentication System** - Login/register with role-based access
+✅ **Dashboard Analytics** - Revenue charts and business metrics
+✅ **Provider Search** - Advanced filtering and discovery
+✅ **Booking Management** - Create and track bookings
+✅ **Team Collaboration** - Member management and roles
+✅ **Reporting System** - Data visualization and insights
+✅ **Profile Management** - User settings and preferences
+✅ **Desktop Integration** - System tray, hotkeys, file dialogs
+
+## 📁 Project Structure
+
+```
+desktop/
+├── lib/
+│   ├── main.dart                 # Application entry point
+│   ├── src/
+│   │   ├── app.dart              # Main app widget
+│   │   ├── core/                 # Core services and config
+│   │   │   ├── config/           # Desktop configuration
+│   │   │   ├── services/         # Desktop services
+│   │   │   └── utils/            # Performance and responsive utilities
+│   │   ├── presentation/         # UI layer
+│   │   │   ├── layouts/          # Shell and layouts
+│   │   │   ├── router/           # Desktop routing
+│   │   │   ├── screens/          # Feature screens
+│   │   │   ├── themes/           # Desktop themes
+│   │   │   └── widgets/          # Desktop widgets
+│   │   └── shared/               # Shared utilities
+├── assets/                       # Images, icons, fonts
+├── docs/                         # Desktop-specific documentation
+├── windows/                      # Windows platform config
+├── macos/                        # macOS platform config
+├── linux/                        # Linux platform config
+├── pubspec.yaml                  # Dependencies and metadata
+├── build_desktop.bat             # Windows build script
+├── build_desktop.sh              # Unix build script
+└── README.md                     # Desktop documentation
+```
+
+## 🚀 Next Steps
+
+1. **Customize Branding** - Update logos, colors, and themes
+2. **Add Native Features** - Integrate with OS-specific APIs
+3. **Optimize Performance** - Profile and tune for your use cases
+4. **Package for Distribution** - Create installers for each platform
+5. **Set Up CI/CD** - Automate builds and deployments
+
+## 📚 Documentation
+
+- **[Desktop README](README.md)** - Setup and usage guide
+- **[Design Guidelines](docs/desktop_design.md)** - UI/UX principles
+- **[Performance Guide](lib/src/core/utils/desktop_performance.dart)** - Optimization strategies
+- **[Responsive Components](lib/src/core/utils/desktop_responsive.dart)** - Adaptive layouts
+
+## 🎯 Desktop-Specific Capabilities
+
+### Navigation & Layout
+- Collapsible navigation rail
+- Multi-column grid layouts
+- Resizable panes and windows
+- Master-detail views
+
+### Input & Interaction
+- Keyboard shortcuts (Ctrl+Shift+T/S/B)
+- Right-click context menus
+- Drag and drop file uploads
+- Mouse hover effects
+
+### System Integration
+- System tray minimization
+- Native file dialogs
+- Global hotkey registration
+- Window state management
+
+### Performance
+- Larger cache sizes
+- Hardware-accelerated rendering
+- Efficient memory management
+- Background processing
+
+## 🎉 You're Ready to Go!
+
+Your Tourflow desktop application is now complete with:
+- ✅ Full feature parity with mobile app
+- ✅ Desktop-optimized user experience
+- ✅ Cross-platform compatibility
+- ✅ Professional deployment setup
+- ✅ Comprehensive documentation
+
+Start building your tourism business management platform today! 🚀
+name: tourflow_desktop
+description: Tourflow Desktop Application - Professional Tourism Management Platform
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.10.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # State Management
+  flutter_riverpod: ^2.4.0
+  riverpod_annotation: ^2.1.1
+  
+  # Supabase
+  supabase_flutter: ^2.0.0
+  
+  # Navigation
+  go_router: ^12.0.0
+  
+  # UI & Design
+  material_color_utilities: ^0.11.1
+  flutter_svg: ^2.0.7
+  cached_network_image: ^3.3.0
+  
+  # Desktop-specific UI
+  fluent_ui: ^4.8.5
+  macos_ui: ^2.0.5
+  yaru: ^1.2.3
+  yaru_widgets: ^3.3.1
+  
+  # Forms & Validation
+  reactive_forms: ^16.1.1
+  
+  # Storage & Caching
+  shared_preferences: ^2.2.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  
+  # Network & API
+  dio: ^5.3.2
+  pretty_dio_logger: ^1.3.1
+  
+  # Utilities
+  uuid: ^4.0.0
+  intl: ^0.18.1
+  equatable: ^2.0.5
+  json_annotation: ^4.8.1
+  
+  # Desktop file handling
+  file_picker: ^6.0.0
+  path_provider: ^2.1.1
+  desktop_drop: ^1.5.0
+  
+  # Desktop integrations
+  window_manager: ^0.3.7
+  system_tray: ^2.0.3
+  hotkey_manager: ^0.2.1
+  screen_retriever: ^0.1.9
+  
+  # Charts and data visualization
+  fl_chart: ^0.66.0
+  syncfusion_flutter_charts: ^24.1.41
+  
+  # Local packages
+  tourflow_core:
+    path: ../../packages/core
+  tourflow_ui:
+    path: ../../packages/ui
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  
+  # Code generation
+  build_runner: ^2.4.6
+  riverpod_generator: ^2.2.3
+  json_serializable: ^6.7.1
+  hive_generator: ^2.0.1
+  
+  # Testing
+  mocktail: ^1.0.0
+  integration_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
+
+# Generated by pub
+# See https://dart.dev/tools/pub/glossary#lockfile
+packages:
+  async:
+    dependency: transitive
+    description:
+      name: async
+      sha256: "947bfcf187f74dbc5e146c9eb9c0f10c9f8b30743e341481c1e2ed3ecc18c20c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.11.0"
+  boolean_selector:
+    dependency: transitive
+    description:
+      name: boolean_selector
+      sha256: "6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
+  characters:
+    dependency: transitive
+    description:
+      name: characters
+      sha256: "04a925763edad70e8443c99234dc3328f442e811f1d8fd1a72f1c8ad0f69a605"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.0"
+  clock:
+    dependency: transitive
+    description:
+      name: clock
+      sha256: cb6d7f03e1de671e34607e909a7213e31d7752be4fb66a86d29fe1eb14bfb5cf
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
+  collection:
+    dependency: transitive
+    description:
+      name: collection
+      sha256: ee67cb0715911d28db6bf4af1026078bd6f0128b07a5f66fb2ed94ec6783c09a
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.18.0"
+  cupertino_icons:
+    dependency: "direct main"
+    description:
+      name: cupertino_icons
+      sha256: ba631d1c7f7bef6b729a622b7b752645a2d076dba9976925b8f25725a30e1ee6
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.8"
+  fake_async:
+    dependency: transitive
+    description:
+      name: fake_async
+      sha256: "511392330127add0b769b75a987850d136345d9227c6b94c96a04cf4a391bf78"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.3.1"
+  flutter:
+    dependency: "direct main"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  flutter_lints:
+    dependency: "direct dev"
+    description:
+      name: flutter_lints
+      sha256: "3f41d009ba7172d5ff9be5f6e6e6abb4300e263aab8866d2a0842ed2a70f8f0c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
+  flutter_test:
+    dependency: "direct dev"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  leak_tracker:
+    dependency: transitive
+    description:
+      name: leak_tracker
+      sha256: "3f87a60e8c63aecc975dda1ceedbc8f24de75f09e4856ea27daf8958f2f0ce05"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.0.5"
+  leak_tracker_flutter_testing:
+    dependency: transitive
+    description:
+      name: leak_tracker_flutter_testing
+      sha256: "932549fb305594d82d7183ecd9fa93463e9914e1b67cacc34bc40906594a1806"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.5"
+  leak_tracker_testing:
+    dependency: transitive
+    description:
+      name: leak_tracker_testing
+      sha256: "6ba465d5d76e67ddf503e1161d1f4a6bc42306f9d66ca1e8f079a47290fb06d3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
+  lints:
+    dependency: transitive
+    description:
+      name: lints
+      sha256: "976c774dd944a42e83e2467f4cc670daef7eed6295b10b36ae8c85bcbf828235"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
+  matcher:
+    dependency: transitive
+    description:
+      name: matcher
+      sha256: d2323aa2060500f906aa31a895b4030b6da3ebdcc5619d14ce1aada65cd161cb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.12.16+1"
+  material_color_utilities:
+    dependency: transitive
+    description:
+      name: material_color_utilities
+      sha256: f7142bb1154231d7ea5f96bc7bde4bda2a0945d2806bb11670e30b850d56bdec
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.11.1"
+  meta:
+    dependency: transitive
+    description:
+      name: meta
+      sha256: bdb68674043280c3428e9ec998512fb681678676b3c54e773629ffe74419f8c7
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.15.0"
+  path:
+    dependency: transitive
+    description:
+      name: path
+      sha256: "087ce49c3f0dc39180befefc60fdb4acd8f8620e5682fe2476afd0b3688bb4af"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.9.0"
+  sky_engine:
+    dependency: transitive
+    description: flutter
+    source: sdk
+    version: "0.0.99"
+  source_span:
+    dependency: transitive
+    description:
+      name: source_span
+      sha256: "53e943d4206a5e30df338fd4c6e7a077e02254531b138a15aec3bd143c1a8b3c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.10.0"
+  stack_trace:
+    dependency: transitive
+    description:
+      name: stack_trace
+      sha256: "73713990125a6d93122541237550ee3352a2d84baad52d375a4cad2eb9b7ce0b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.11.1"
+  stream_channel:
+    dependency: transitive
+    description:
+      name: stream_channel
+      sha256: ba2aa5d8cc609d96bbb2899c28934f9e1af5cddbd60a827822ea467161eb54e7
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.2"
+  string_scanner:
+    dependency: transitive
+    description:
+      name: string_scanner
+      sha256: "556692adab6cfa87322a115640c11f13cb77b3f076ddcc5d6ae3c20242bedcde"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
+  term_glyph:
+    dependency: transitive
+    description:
+      name: term_glyph
+      sha256: a29248a84fbb7c79282b40b8c72a1209db169a2e0542bce341da992fe1bc7e84
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.1"
+  test_api:
+    dependency: transitive
+    description:
+      name: test_api
+      sha256: "5b8a98dafc4d5c4c9c72d8b31ab2b23fc13422348d2997120294d3bac86b4ddb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.2"
+  vector_math:
+    dependency: transitive
+    description:
+      name: vector_math
+      sha256: "80b3257d1492ce4d091729e3a67a60407d227c27241d6927be0130c98e741803"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.4"
+  vm_service:
+    dependency: transitive
+    description:
+      name: vm_service
+      sha256: "5c5f338a667b4c644744b661f309fb8080bb94b18a7e91ef1dbd343bed00ed6d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "14.2.5"
+sdks:
+  dart: ">=3.5.4 <4.0.0"
+  flutter: ">=3.18.0-18.0.pre.54"
+
+# This file tracks properties of this Flutter project.
+# Used by Flutter tool to assess capabilities and perform upgrades etc.
+#
+# This file should be version controlled and should not be manually edited.
+
+version:
+  revision: "603104015dd692ea3403755b55d07813d5cf8965"
+  channel: "stable"
+
+project_type: app
+
+# Tracks metadata for the flutter migrate command
+migration:
+  platforms:
+    - platform: root
+      create_revision: 603104015dd692ea3403755b55d07813d5cf8965
+      base_revision: 603104015dd692ea3403755b55d07813d5cf8965
+    - platform: linux
+      create_revision: 603104015dd692ea3403755b55d07813d5cf8965
+      base_revision: 603104015dd692ea3403755b55d07813d5cf8965
+    - platform: macos
+      create_revision: 603104015dd692ea3403755b55d07813d5cf8965
+      base_revision: 603104015dd692ea3403755b55d07813d5cf8965
+    - platform: windows
+      create_revision: 603104015dd692ea3403755b55d07813d5cf8965
+      base_revision: 603104015dd692ea3403755b55d07813d5cf8965
+
+  # User provided section
+
+  # List of Local paths (relative to this file) that should be
+  # ignored by the migrate tool.
+  #
+  # Files that are not part of the templates will be ignored by default.
+  unmanaged_files:
+    - 'lib/main.dart'
+    - 'ios/Runner.xcodeproj/project.pbxproj'
+
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+#
+# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+# invoked from the command line by running `flutter analyze`.
+
+# The following line activates a set of recommended lints for Flutter apps,
+# packages, and plugins designed to encourage good coding practices.
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at https://dart.dev/lints.
+  #
+  # Instead of disabling a lint rule for the entire project in the
+  # section below, it can also be suppressed for a single line of code
+  # or a specific dart file by using the `// ignore: name_of_lint` and
+  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  # producing the lint.
+  rules:
+    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
+
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/lib" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/build" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Dart SDK" level="project" />
+    <orderEntry type="library" name="Flutter Plugins" level="project" />
+    <orderEntry type="library" name="Dart Packages" level="project" />
+  </component>
+</module>
